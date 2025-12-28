@@ -1,6 +1,7 @@
 package org.ichcode.version4;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /*
 Decision Tree Diagram
@@ -17,9 +18,14 @@ Is the player nearby?
 class Alien extends Rectangle {
 
     private final DecisionNode brain;
+    private final BufferedImage skin;
 
-    public Alien(int x, int y) {
-        super(x, y, 10, 10);
+    public Alien(int x, int y, BufferedImage skin) {
+        this.x = x;
+        this.y = y;
+        this.width = 40;
+        this.height = 30;
+        this.skin = skin;
         brain = createDecisionTree();
     }
 
@@ -46,8 +52,11 @@ class Alien extends Rectangle {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, width, height);
+        if (skin != null) {
+            g.drawImage(skin, x, y, width, height, null);
+        } else {
+            g.fillRect(x, y, width, height); // fallback
+        }
     }
 
     // decision tree

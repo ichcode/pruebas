@@ -1,13 +1,19 @@
 package org.ichcode.version4;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 class Ship extends Rectangle {
     private int dx = 0;
+    private final BufferedImage skin;
 
-    public Ship(int x, int y) {
-        super(x, y, 40, 20);
+    public Ship(int x, int y, BufferedImage skin) {
+        this.x = x;
+        this.y = y;
+        this.width = 100;
+        this.height = 80;
+        this.skin = skin;
     }
 
     public void setDx(int dx) {
@@ -21,7 +27,10 @@ class Ship extends Rectangle {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, width, height);
+        if (skin != null) {
+            g.drawImage(skin, x, y, width, height, null);
+        } else {
+            g.fillRect(x, y, width, height); // fallback
+        }
     }
 }

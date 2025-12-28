@@ -23,8 +23,9 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
 
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
+        cargarSkins();
         timer = new Timer(1000 / 60, this);
-        ship = new Ship(width / 2, height - 50);
+        ship = new Ship(width / 2, height - 50, SkinManager.getSkin("ship"));
         aliens = new ArrayList<>();
         shots = new ArrayList<>();
         addKeyListener(this);
@@ -33,12 +34,20 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
     }
 
     private void iniciarJuego() {
+        String[] skins = {"alien1", "alien2", "alien3", "alien1", "alien2", "alien3"};
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 10; j++) {
-                aliens.add(new Alien(50 + j * 60, 50 + i * 40));
+                aliens.add(new Alien(50 + j * 60, 50 + i * 40, SkinManager.getSkin(skins[i])));
             }
         }
         timer.start();
+    }
+
+    private void cargarSkins() {
+        SkinManager.loadSkin("alien1", "/skins/alien1.png");
+        SkinManager.loadSkin("alien2", "/skins/alien2.png");
+        SkinManager.loadSkin("alien3", "/skins/alien3.png");
+        SkinManager.loadSkin("ship", "/skins/ship.png");
     }
 
     public void paintComponent(Graphics g) {

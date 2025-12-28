@@ -4,7 +4,7 @@ import java.awt.*;
 
 class Shot extends Rectangle {
     public Shot(int x, int y) {
-        super(x, y, 5, 10);
+        super(x, y, 5, 5);
     }
 
     public void mover() {
